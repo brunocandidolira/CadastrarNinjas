@@ -1,0 +1,14 @@
+package dev.java10x.CadastrarNinjas;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping
+public class Controler {
+    @GetMapping("/testando")
+    public String testando() {
+        return "Testando a Rota";
+    }
+}
