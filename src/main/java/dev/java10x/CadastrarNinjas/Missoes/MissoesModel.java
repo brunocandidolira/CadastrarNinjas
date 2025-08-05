@@ -11,17 +11,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "Tb_missoes")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+
 public class MissoesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    private String nomeMissão;
+
+   @Column(name="nomeMissao")
+    private String nomeMissao;
+
+   @Column(name="dificuldade")
     private String dificuldade;
-    // uma missão pode ter varios ninjas
+
+   // uma missão pode ter varios ninjas
     @OneToMany(mappedBy = "missoes")
-    private List<NinjaModel> ninja;
+    private List <NinjaModel>ninjas;
 
 }
