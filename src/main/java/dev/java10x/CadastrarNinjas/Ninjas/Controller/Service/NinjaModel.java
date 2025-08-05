@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Tb_cadastro")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class NinjaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class NinjaModel {
 
     // @ManyToOne cada ninja tem um unica missao
     @ManyToOne
-    @JoinColumn(name = "Missoes_id")//chave estrageira
-    private MissoesModel Missoes;
+    @JoinColumn(name ="missoes_id")//chave estrageira
+    private MissoesModel missoes;
 
 }
