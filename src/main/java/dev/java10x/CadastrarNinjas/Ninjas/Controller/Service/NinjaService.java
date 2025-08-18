@@ -28,4 +28,8 @@ public class NinjaService {
     public NinjaModel criarNinja(NinjaModel ninja) {
         return  ninjaRepository.save(ninja);
     }
+    // Deletar ninjas metodo void pos não precisa retornar um objeto
+    public void deletarNinjaPorId(Long id){
+        ninjaRepository.deleteById(id);
+    }
     }
