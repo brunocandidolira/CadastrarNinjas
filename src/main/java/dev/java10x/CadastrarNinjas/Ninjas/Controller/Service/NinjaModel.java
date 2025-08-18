@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 public class NinjaModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-    @Column(name="id")
     Long id;
 
     @Column(name ="imgUrl")
@@ -35,4 +33,11 @@ public class NinjaModel {
     @JoinColumn(name ="missoes_id")//chave estrageira
     private MissoesModel missoes;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
