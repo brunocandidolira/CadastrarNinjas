@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela de Missoes</title>
+</head>
+<body>
+<h1>Listar Missões</h1>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Missão</th>
+        <th>Dificuldade</th>
+        <th>Ninjas na Missão</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="missao : ${missoes}">
+        <td th:text="${missao.id}"></td>
+        <td th:text="${missao.nomeMissao}"></td>
+        <td th:text="${missao.dificuldade}"></td>
+        <td>
+            <span th:each="ninja : ${missao.ninjas}"
+                  th:text="${ninja.nome} + ' '" />
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>
