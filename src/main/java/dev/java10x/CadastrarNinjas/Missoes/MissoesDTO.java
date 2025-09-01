@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Ninja</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #3498db;
+        }
+
+        .card h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+            margin: 6px 0;
+        }
+
+        .rank {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #3498db;
+            color: #fff;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .missoes {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f6f7;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .missoes h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .missoes p {
+            margin: 5px 0;
+        }
+
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #bdc3c7;
+            color: #2c3e50;
+        }
+        .btn-secondary:hover {
+            background: #95a5a6;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <img th:src="${ninja.imgUrl}" alt="Foto do Ninja">
+    <h1 th:text="${ninja.nome}">Nome do Ninja</h1>
+    <p><strong>ID:</strong> <span th:text="${ninja.id}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${ninja.email}"></span></p>
+    <p><strong>Idade:</strong> <span th:text="${ninja.idade}"></span></p>
+    <span class="rank" th:text="${ninja.rank}">Rank</span>
+
+    <div class="missoes">
+        <h2>Missões</h2>
+        <div th:if="${ninja.missoes != null}">
+            <p><strong>Nome:</strong> <span th:text="${ninja.missoes.nomeMissao}"></span></p>
+            <p><strong>Dificuldade:</strong> <span th:text="${ninja.missoes.dificuldade}"></span></p>
+        </div>
+        <div th:if="${ninja.missoes == null}">
+            <p>Sem missões cadastradas para este ninja.</p>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <a href="/ninjas/ui/listar" class="btn btn-secondary">Voltar</a>
+        <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" class="btn btn-primary">Editar</a>
+    </div>
+</div>
+</body>
+</html>

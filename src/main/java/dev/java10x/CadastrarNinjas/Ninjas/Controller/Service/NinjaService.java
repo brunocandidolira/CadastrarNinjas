@@ -1,7 +1,5 @@
 package dev.java10x.CadastrarNinjas.Ninjas.Controller.Service;
 
-import org.apache.catalina.LifecycleState;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +29,6 @@ public class NinjaService {
         Optional<NinjaModel> ninjaPorId= ninjaRepository.findById(id);
         return ninjaPorId.map(ninjaMapper::map).orElse(null);
         }
-    //criar ninjas
     public NinjaDTO criarNinja(NinjaDTO ninjaDTO) {
         NinjaModel ninja = ninjaMapper.map(ninjaDTO);
         ninja= ninjaRepository.save(ninja);
@@ -55,4 +52,8 @@ public class NinjaService {
    }
 return null;
     }
+
+    public NinjaModel salvar(NinjaModel model) {
+return  ninjaRepository.save(model);
     }
+}

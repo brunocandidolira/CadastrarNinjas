@@ -21,9 +21,10 @@ public class NinjaDTO {
 
     private int idade;
 
-    private MissoesModel missoes;
+    private String rank;
 
-    private  String rank;
+
+    private MissoesModel missoes;
 
     public String getEmail() {
         return email;

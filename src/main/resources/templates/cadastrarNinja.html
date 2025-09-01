@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Ninja</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #e6eef6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+        }
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            padding: 12px;
+            background: #ff8c00;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e07b00;
+        }
+        .mensagem {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #7CFC00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Cadastro de Ninja</h1>
+
+    <!-- Mensagem de sucesso -->
+    <div th:if="${mensagem}" class="mensagem">
+        <p th:text="${mensagem}"></p>
+    </div>
+
+    <!-- Formulário de cadastro -->
+    <form th:action="@{/ninjas/ui/salvar}" th:object="${ninja}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" required/>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required/>
+
+        <label>Idade:</label>
+        <input type="number" th:field="*{idade}" min="0"/>
+
+        <label>Rank:</label>
+        <select th:field="*{rank}">
+            <option value="GENIN">GENIN</option>
+            <option value="CHUNIN">CHUNIN</option>
+            <option value="JONIN">JONIN</option>
+            <option value="SANNIN">SANNIN</option>
+        </select>
+        <label>Imagem (URL):</label>
+        <input type="text" th:field="*{imgUrl}"/>
+
+        <button type="submit">Salvar Ninja</button>
+    </form>
+</div>
+</body>
+</html>

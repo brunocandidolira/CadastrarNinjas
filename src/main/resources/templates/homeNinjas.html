@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Dashboard Ninja</title>
+    <style>
+        /* ================================
+           RESET E CONFIGURAÇÕES GLOBAIS
+        ================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: url('images/banner-ninja.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.6);
+            z-index: 0;
+        }
+
+        /* ================================
+           CONTAINER PRINCIPAL
+        ================================ */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            color: #fff;
+        }
+
+        /* ================================
+           TITULO E SUBTITULO
+        ================================ */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+        }
+
+        /* ================================
+           GRID DE CARDS
+        ================================ */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #2c3e50;
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ================================
+           HOVER NOS CARDS
+        ================================ */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+        }
+
+        /* ================================
+           ICONES
+        ================================ */
+        .card img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        /* ================================
+           TEXTO DOS CARDS
+        ================================ */
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* ================================
+           RESPONSIVIDADE
+        ================================ */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1.1rem; }
+            .cards { gap: 15px; }
+            .card { padding: 25px 15px; }
+            .card img { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- TITULO DA DASHBOARD -->
+    <h1>Dashboard Ninja</h1>
+    <p>Gerencie seus ninjas, cadastros e missões de forma rápida e moderna</p>
+
+    <!-- GRID DE CARDS -->
+    <div class="cards">
+        <!-- CARD LISTAR NINJAS -->
+        <a th:href="@{/ninjas/ui/listarNinjas}" class="card">
+            <img src="data:image/jpeg;base64,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" alt="Listar Icon">
+            <h2>Listar Ninjas</h2>
+            <p>Veja todos os ninjas cadastrados na aplicação</p>
+        </a>
+
+        <!-- CARD CADASTRAR NINJA -->
+        <a th:href="@{/ninjas/ui/cadastrarNinja}" class="card">
+            <img src="https://media.istockphoto.com/id/1042683584/pt/foto/fighter-with-a-sword-silhouette-a-sky-ninja-samurai-on-top-of-mountain-with-dark-toned-foggy.jpg?s=1024x1024&w=is&k=20&c=DUPxWcNfVb6RAFJGBa70Y-1MovlS4gO0JRApOWys45w=" alt="Cadastrar Icon">
+            <h2>Cadastrar Ninja</h2>
+            <p>Adicione um novo ninja à sua base de dados</p>
+        </a>
+
+        <!-- CARD LISTAR MISSÕES -->
+        <a th:href="@{/missoes/ui/listarMissoes}" class="card">
+            <img src="https://media.istockphoto.com/id/108315064/pt/foto/%D0%B6%D0%B0%D0%BA%D0%B5%D1%82-ninja.jpg?s=1024x1024&w=is&k=20&c=KMpei1BSlyDOObqug0G1godYwAHlIfHBDQxt9Gka46M=" alt="Missões Icon">
+            <h2>Missões</h2>
+            <p>Visualize todas as missões disponíveis e atribuídas</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

@@ -20,10 +20,7 @@
         <td th:text="${missao.id}"></td>
         <td th:text="${missao.nomeMissao}"></td>
         <td th:text="${missao.dificuldade}"></td>
-        <td>
-            <span th:each="ninja : ${missao.ninjas}"
-                  th:text="${ninja.nome} + ' '" />
-        </td>
+        <td><span th:each="ninja : ${missao.ninjas}"th:text="${ninja.nome} + ' '" /></td>
     </tr>
     </tbody>
 
