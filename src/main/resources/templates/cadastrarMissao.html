@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Missão</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .ninjas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .ninja-card {
+            background: #f7f7f7;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .ninja-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .ninja-card input {
+            display: none;
+        }
+
+        .ninja-card.selected {
+            border-color: #667eea;
+            background: #e0e7ff;
+        }
+
+        .ninja-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Cadastrar Missão</h2>
+    <form th:action="@{/missoes/ui/salvar}" th:object="${missoesDTO}" method="post">
+
+        <label>Nome da Missão</label>
+        <input type="text" th:field="*{nomeMissao}" placeholder="Digite o nome da missão" required/>
+
+        <label>Dificuldade</label>
+        <input type="text" th:field="*{dificuldade}" placeholder="Ex: Fácil, Média, Difícil" required/>
+
+        <label>Escolha os Ninjas</label>
+        <div class="ninjas-grid">
+            <div th:each="ninja : ${ninjas}" class="ninja-card" th:onclick="|toggleNinja(this)|">
+                <input type="checkbox" th:field="*{ninjasIds}" th:value="${ninja.id}"/>
+                <img th:src="${ninja.imgUrl}" alt="Imagem do Ninja"/>
+                <div th:text="${ninja.nome}"></div>
+            </div>
+        </div>
+
+        <button type="submit">Cadastrar Missão</button>
+    </form>
+</div>
+
+<script>
+    function toggleNinja(card) {
+        const checkbox = card.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        card.classList.toggle('selected', checkbox.checked);
+    }
+</script>
+
+</body>
+</html>

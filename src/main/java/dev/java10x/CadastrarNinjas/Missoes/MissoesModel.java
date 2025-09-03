@@ -4,10 +4,7 @@ package dev.java10x.CadastrarNinjas.Missoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.java10x.CadastrarNinjas.Ninjas.Controller.Service.NinjaModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -17,51 +14,24 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class MissoesModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-   @Column(name="nomeMissao")
+
+    @Column(name="nomeMissao")
     private String nomeMissao;
 
    @Column(name="dificuldade")
     private String dificuldade;
 
    // uma missão pode ter varios ninjas
-    @OneToMany(mappedBy = "missoes")
-    @JsonIgnore
-    private List <NinjaModel>ninjas;
+   @OneToMany(mappedBy = "missoes", cascade = CascadeType.ALL, orphanRemoval = true)
+   @JsonIgnore
 
-    public String getDificuldade() {
-        return dificuldade;
-    }
+   private List <NinjaModel>ninjas;
 
-    public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public List<NinjaModel> getNinjas() {
-        return ninjas;
-    }
-
-    public void setNinjas(List<NinjaModel> ninjas) {
-        this.ninjas = ninjas;
-    }
-
-    public String getNomeMissao() {
-        return nomeMissao;
-    }
-
-    public void setNomeMissao(String nomeMissao) {
-        this.nomeMissao = nomeMissao;
-    }
 }

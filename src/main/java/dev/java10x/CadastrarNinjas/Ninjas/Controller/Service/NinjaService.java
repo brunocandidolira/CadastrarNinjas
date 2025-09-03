@@ -1,8 +1,10 @@
 package dev.java10x.CadastrarNinjas.Ninjas.Controller.Service;
 
+import dev.java10x.CadastrarNinjas.Missoes.MissoesModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,11 @@ public class NinjaService {
         ninja= ninjaRepository.save(ninja);
         return  ninjaMapper.map(ninja);
     }
+    public NinjaModel buscarPorId(Long id) {
+        return ninjaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ninja não encontrado: " + id));
+    }
+
     // Deletar ninjas metodo void pos não precisa retornar um objeto
     public void deletarNinjaPorId(Long id){
         ninjaRepository.deleteById(id);
@@ -53,7 +60,4 @@ public class NinjaService {
 return null;
     }
 
-    public NinjaModel salvar(NinjaModel model) {
-return  ninjaRepository.save(model);
-    }
 }
