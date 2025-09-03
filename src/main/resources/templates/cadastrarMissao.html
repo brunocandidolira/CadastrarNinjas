@@ -102,10 +102,31 @@
             font-size: 16px;
             transition: background 0.3s;
         }
+        /* Botão voltar moderno */
+.btn-voltar {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
 
-        button:hover {
-            background: #5a67d8;
-        }
+.btn-voltar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, #ff648c, #ff5eb3);
+}
+
+.btn-voltar:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
     </style>
 </head>
 <body>
@@ -128,9 +149,11 @@
                 <div th:text="${ninja.nome}"></div>
             </div>
         </div>
-
         <button type="submit">Cadastrar Missão</button>
     </form>
+    <td colspan="7" class="td-voltar"> <!-- colspan para ocupar todas as colunas -->
+        <a href="/ninjas/ui/home" class="btn btn-secondary">Voltar</a>
+    </td>
 </div>
 
 <script>

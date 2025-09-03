@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alterar Ninja</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #141e30, #243b55);
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #ddd;
+        }
+
+        input, select {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 15px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input {
+            background: #f9f9f9;
+        }
+
+        select {
+            background: #f9f9f9;
+        }
+
+        .btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #00c6ff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #0072ff;
+        }
+
+        .btn-secondary {
+            background: #ccc;
+            color: #333;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #bbb;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Alterar Ninja</h2>
+
+    <form th:action="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" method="post" th:object="${ninja}">
+        <!-- ID oculto -->
+        <input type="hidden" th:field="*{id}">
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome do ninja" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" placeholder="Digite o email" required>
+
+        <label for="imgUrl">Imagem (URL)</label>
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" placeholder="Cole a URL da imagem">
+
+        <label for="missoes">Missão</label>
+        <select id="missoes" th:field="*{missoes.id}">
+            <option value="" disabled>Selecione uma missão</option>
+            <option th:each="missao : ${missoesDisponiveis}"
+                    th:value="${missao.id}"
+                    th:text="${missao.nomeMissao}"
+                    th:selected="${ninja.missoes != null} ? ${missao.id} == ${ninja.missoes.id} : false">
+            </option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+
+    <a th:href="@{/ninjas/ui/listar}" class="btn btn-secondary">Cancelar</a>
+</div>
+</body>
+</html>

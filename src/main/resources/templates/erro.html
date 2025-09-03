@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f87171;
+            color: #fff;
+        }
+        .erro-container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #4b5563;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+        a:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body>
+<div class="erro-container">
+    <h1>Ocorreu um erro!</h1>
+    <p th:text="${erro}">Mensagem de erro</p>
+    <a href="/ninjas/ui/listar">Voltar à lista de ninjas</a>
+</div>
+</body>
+</html>

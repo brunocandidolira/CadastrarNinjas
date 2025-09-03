@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tabela de Ninjas</title>
+    <title>Listar Ninjas</title>
     <style>
         /* Reset básico */
         * {
@@ -18,7 +18,6 @@
             padding: 20px;
         }
 
-        /* Título */
         h1 {
             text-align: center;
             margin-bottom: 20px;
@@ -26,7 +25,6 @@
             color: #2c3e50;
         }
 
-        /* Tabela */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -64,14 +62,12 @@
             vertical-align: middle;
         }
 
-        /* Imagem */
         td img {
             border-radius: 8px;
             border: 2px solid #ccc;
             object-fit: cover;
         }
 
-        /* Botões */
         td a {
             display: inline-block;
             padding: 6px 12px;
@@ -83,86 +79,34 @@
             transition: all 0.2s ease-in-out;
         }
 
-        /* Cores diferentes para cada ação */
-        td a:first-child {
-            background: #3498db;
-            color: white;
-        }
-        td a:first-child:hover {
-            background: #2980b9;
-        }
-
-        td a:nth-child(2) {
-            background: #f1c40f;
-            color: #fff;
-        }
-        td a:nth-child(2):hover {
-            background: #d4ac0d;
-        }
-
-        td a:last-child {
-            background: #e74c3c;
-            color: white;
-        }
-        td a:last-child:hover {
-            background: #c0392b;
-        }
+        td a:first-child { background: #3498db; color: white; }
+        td a:first-child:hover { background: #2980b9; }
+        td a:nth-child(2) { background: #f1c40f; color: #fff; }
+        td a:nth-child(2):hover { background: #d4ac0d; }
+        td a:last-child { background: #e74c3c; color: white; }
+        td a:last-child:hover { background: #c0392b; }
 
         /* Responsividade */
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
-            thead {
-                display: none;
-            }
-
-            tbody tr {
-                margin-bottom: 15px;
-                border: 1px solid #ddd;
-                border-radius: 10px;
-                padding: 10px;
-                background: #fff;
-            }
-
-            tbody td {
-                display: flex;
-                justify-content: space-between;
-                padding: 10px;
-            }
-
-            tbody td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                text-transform: uppercase;
+            table, thead, tbody, th, td, tr { display: block; }
+            thead { display: none; }
+            tbody tr { margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; padding: 10px; background: #fff; }
+            tbody td { display: flex; justify-content: space-between; padding: 10px; }
+            tbody td::before { content: attr(data-label); font-weight: 600; text-transform: uppercase; color: #2c3e50; }
+            .td-voltar { display: flex; justify-content: center; align-items: center; padding: 20px; }
+            .btn.btn-secondary {
+                background: #bdc3c7;
                 color: #2c3e50;
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: 0.3s;
+                text-align: center;
+                min-width: 120px;
+                max-width: 90%;
             }
-           .td-voltar {
-  display: flex;              /* Ativa flexbox */
-  justify-content: center;    /* Centraliza horizontal */
-  align-items: center;        /* Alinha vertical (se necessário) */
-  padding: 20px;
-}
-
-.btn.btn-secondary {
-  background: #bdc3c7;
-  color: #2c3e50;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-  text-align: center;
-  min-width: 120px;           /* Tamanho mínimo */
-  max-width: 90%;             /* Nunca ultrapassa a tela */
-}
-
-.btn.btn-secondary:hover {
-  background: #95a5a6;
-}
-
-
+            .btn.btn-secondary:hover { background: #95a5a6; }
         }
     </style>
 </head>
@@ -190,28 +134,27 @@
         <td data-label="Idade" th:text="${ninja.idade}"></td>
         <td data-label="Rank" th:text="${ninja.rank}"></td>
         <td data-label="Missões">
-                <span th:if="${ninja.missoes != null}">
-                    <span th:text="${ninja.missoes.nomeMissao}"></span> -
-                    Dificuldade: <span th:text="${ninja.missoes.dificuldade}"></span>
-                </span>
-            <span th:if="${ninja.missoes == null}">
-                    Sem missão cadastrada
-                </span>
+            <div th:if="${#lists.isEmpty(ninja.missoes)}">Sem missão cadastrada</div>
+            <ul th:if="${!#lists.isEmpty(ninja.missoes)}">
+                <li th:each="missao : ${ninja.missoes}">
+                    <span th:text="${missao.nomeMissao}"></span> -
+                    Dificuldade: <span th:text="${missao.dificuldade}"></span>
+                </li>
+            </ul>
         </td>
         <td data-label="Ações">
             <a th:href="@{/ninjas/ui/detalhes/{id}(id=${ninja.id})}">Ver detalhes</a>
             <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">Deletar</a>
+            <a th:href="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}">Alterar</a>
         </td>
     </tr>
     <tr>
-    <tr>
-        <td colspan="7" class="td-voltar"> <!-- colspan para ocupar todas as colunas -->
+        <td colspan="8" class="td-voltar">
             <a href="/ninjas/ui/home" class="btn btn-secondary">Voltar</a>
         </td>
-    </tr>
-
     </tr>
     </tbody>
 </table>
 </body>
 </html>
+
